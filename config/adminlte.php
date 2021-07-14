@@ -247,6 +247,13 @@ return [
         //     'can'  => 'manage-blog',
         // ],
         [
+            'text'        => 'Dashboard',
+            'url'         => 'dashboard',
+            'icon'        => 'fas fa-home',
+            // 'label'       => 4,
+            'label_color' => 'success',
+        ],
+        [
             'text'        => 'Orders',
             'url'         => 'orders',
             'icon'        => 'far fa-fw fa-clipboard',

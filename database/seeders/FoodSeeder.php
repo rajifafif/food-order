@@ -35,6 +35,7 @@ class FoodSeeder extends Seeder
         ];
 
         foreach ($foods as $food) {
+            $food['status'] = 'ready';
             Food::updateOrCreate(['name' => $food['name']], $food);
         }
 

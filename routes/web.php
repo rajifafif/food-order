@@ -23,12 +23,15 @@ Route::group(['middleware' => 'auth'], function () {
         return view('welcome');
     });
 
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
 
     Route::get('order-table/{id}', [OrderController::class, 'orderOnTable'])->name('order-table');
     Route::post('order-add-food', [OrderController::class, 'orderAddFood'])->name('order-add-food');
     Route::post('order-delete-food', [OrderController::class, 'orderDeleteFood'])->name('order-add-food');
     Route::post('order-close/{id}', [OrderController::class, 'orderClose'])->name('order-close');
-    Route::resource('orders', OrderController::class);
+    Route::get('orders/print', [OrderController::class, 'print'])->name('orders.print');
+    Route::get('orders/{id}', [OrderController::class, 'show'])->name('orders.show');
+    Route::get('orders/{id}/edit', [OrderController::class, 'edit'])->name('orders.edit');
+    Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
     Route::resource('foods', FoodController::class);
 });

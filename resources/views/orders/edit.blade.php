@@ -10,7 +10,7 @@
     <div class="row">
         <div class="col-md-4">
             <div class="form-group">
-                <input type="text" id="food-search" class="form-control" placeholder="Search Food">
+                {{-- <input type="text" id="food-search" class="form-control" placeholder="Search Food"> --}}
             </div>
             <div style="max-height: 500px; overflow-y: scroll">
                 @foreach ($foods as $food)
@@ -22,7 +22,11 @@
                         <span class="info-box-number">{{ \Helper::moneyFormat($food->price) }}</span>
                     </div>
                     <!-- /.info-box-content -->
-                    <a class="info-box-icon btn btn-outline-success add-food" data-food_id="{{ $food->id }}"><i class="fas fa-plus"></i></a>
+                    @if($food->status == 'ready')
+                        <a class="info-box-icon btn btn-outline-success add-food" data-food_id="{{ $food->id }}"><i class="fas fa-plus"></i></a>
+                    @else
+                        <a href="#" class="info-box-icon btn btn-outline-default disabled"><i class="fas fa-plus"></i></a>
+                    @endif
                 </div>
             @endforeach
             </div>

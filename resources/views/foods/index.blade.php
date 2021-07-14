@@ -4,7 +4,8 @@
 
 @section('content_header')
     <h1>Food List</h1>
-    <a href="{{ route('foods.create') }}">Tambah Food</a>
+    <hr>
+    <a href="{{ route('foods.create') }}" class="btn btn-primary">Tambah Food</a>
 @stop
 
 @section('content')
@@ -37,6 +38,7 @@
             </tr>
         @endforeach
     </table>
+    {{ $foods->links() }}
 @stop
 
 @section('css')

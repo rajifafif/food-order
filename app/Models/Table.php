@@ -13,4 +13,9 @@ class Table extends Model
         'name',
         'seat'
     ];
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 }

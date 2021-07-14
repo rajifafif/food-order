@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Helpers\Helper;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -28,6 +29,23 @@ class Order extends Model
     public function kasir()
     {
         return $this->belongsTo(User::class, 'kasir_id');
+    }
+
+    public function getTotalFoodAttribute()
+    {
+        return $this->food_orders->sum('qty');
+    }
+
+    public function getNewOrderNumber()
+    {
+        $latestOrder = Self::latest()->first();
+
+        if ($latestOrder) {
+            $lastId = Helper::getOrderNbrId($latestOrder->order_nbr);
+            return Helper::makeOrderNbr($lastId);
+        } else {
+            return Helper::makeOrderNbr(0);
+        }
     }
 
     public function closeOrder($kasir)

@@ -8,30 +8,27 @@
 
 @section('content')
     <div class="row">
-        <div class="col-xs-6 col-md-3">
-            <a href="{{ 'order-table/1' }}" class="small-box bg-success">
-                <div class="inner">
-                <h3>Meja 1<sup style="font-size: 20px">(4)</sup></h3>
+        @foreach ($tables as $table)
+            @if (count($table->orders))
+                <div class="col-xs-6 col-md-3">
+                    <a href="{{ route('orders.edit', $table->orders->first->id) }}" class="small-box bg-warning">
+                        <div class="inner">
+                        <h3>{{ $table->name }}<sup style="font-size: 20px">({{ $table->seat }})</sup></h3>
+                        </div>
+                        <span class="small-box-footer">View Order <i class="fas fa-arrow-plus"></i></span>
+                    </a>
                 </div>
-                <span class="small-box-footer">Tambah Order <i class="fas fa-arrow-plus"></i></span>
-            </a>
-        </div>
-        <div class="col-xs-6 col-md-3">
-            <div class="small-box bg-warning">
-                <div class="inner">
-                <h3>Meja 1<sup style="font-size: 20px">(4)</sup></h3>
-                </div>
-                <a href="#" class="small-box-footer">Tambah Menu <i class="fas fa-arrow-circle-right"></i></a>
+            @else
+            <div class="col-xs-6 col-md-3">
+                <a href="{{ route('order-table', $table->id) }}" class="small-box bg-success">
+                    <div class="inner">
+                    <h3>{{ $table->name }}<sup style="font-size: 20px">({{ $table->seat }})</sup></h3>
+                    </div>
+                    <span class="small-box-footer">Open Order <i class="fas fa-arrow-plus"></i></span>
+                </a>
             </div>
-        </div>
-        <div class="col-xs-6 col-md-3">
-            <div class="small-box bg-success">
-                <div class="inner">
-                <h3>Meja 1<sup style="font-size: 20px">(4)</sup></h3>
-                </div>
-                <a href="#" class="small-box-footer">Order <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-        </div>
+            @endif
+        @endforeach
     </div>
 @stop
 

@@ -4,6 +4,10 @@
 
 @section('content_header')
     <h1>Order List</h1>
+    <hr>
+    @if (auth()->user()->hasRole('Pelayan'))
+    <a href="{{ route('orders.print') }}" class="btn btn-info">Cetak Laporan</a>
+    @endif
 @stop
 
 @section('content')
@@ -22,11 +26,15 @@
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $order->order_nbr }}</td>
                 <td>{{ $order->table->name ?? '' }}</td>
-                <td>{{ $order->status }}</td>
-                <td>{{ $order->status }}</td>
+                <td>{{ ucfirst($order->status) }}</td>
+                <td>{{ $order->total_food }}</td>
                 <td>{{ \Helper::moneyFormat($order->total_price) }}</td>
                 <td>
-                    <a href="{{ route('orders.edit', $order) }}" class="btn btn-sm btn-warning">Edit</a>
+                    @if ($order->status == 'open')
+                        <a href="{{ route('orders.edit', $order) }}" class="btn btn-sm btn-warning">Edit</a>
+                    @else
+                        <a href="{{ route('orders.show', $order) }}" class="btn btn-sm btn-success">View</a>
+                    @endif
                     {{-- <a href="#" onclick="event.preventDefault();
                     document.getElementById('order-{{$order->id}}-delete').submit();" class="btn btn-sm btn-danger">
                         Delete
@@ -39,6 +47,8 @@
             </tr>
         @endforeach
     </table>
+
+    {{ $orders->links() }}
 @stop
 
 @section('css')

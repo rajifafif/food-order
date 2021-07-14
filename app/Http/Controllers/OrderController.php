@@ -17,7 +17,17 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::paginate();
+        $orders = new Order();
+        $orders = $orders->with('food_orders');
+        $user = auth()->user();
+
+        if ($user->hasRole('Pelayan')) {
+            $orders = $orders->whereHas('food_orders', function($food_orders) use ($user){
+                return $food_orders->where('pelayan_id', $user->id);
+            });
+        }
+
+        $orders = $orders->paginate();
 
         return view('orders.index', compact('orders'));
     }
@@ -97,8 +107,10 @@ class OrderController extends Controller
     {
         $table = Table::findOrFail($id);
         //TODO check if table used;
+
+        $newOrderNbr = (new Order)->getNewOrderNumber();
         $order = Order::create([
-            'order_nbr' => '1', //TODO make ordernumber
+            'order_nbr' => $newOrderNbr,
             'table_id' => $table->id,
             'status' => 'open',
             'total_price' => 0,
@@ -152,5 +164,23 @@ class OrderController extends Controller
         $order = $order->closeOrder($kasir);
 
         return redirect( route('orders.show', $order->id));
+    }
+
+    public function print()
+    {
+        //Generate PDF?
+        $orders = new Order();
+        $orders = $orders->with('food_orders');
+        $user = auth()->user();
+
+        if ($user->hasRole('Pelayan')) {
+            $orders = $orders->whereHas('food_orders', function($food_orders) use ($user){
+                return $food_orders->where('pelayan_id', $user->id);
+            });
+        }
+
+        $orders = $orders->get();
+
+        return view('orders.print', compact('orders'));
     }
 }
