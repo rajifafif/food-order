@@ -18,7 +18,7 @@ class CreateFoodOrdersTable extends Migration
             $table->unsignedBigInteger('order_id');
             $table->unsignedBigInteger('food_id');
             $table->unsignedBigInteger('pelayan_id');
-            $table->unsignedBigInteger('kasir_id');
+            $table->tinyInteger('qty');
             $table->timestamps();
         });
     }

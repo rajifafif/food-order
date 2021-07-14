@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Food;
+use App\Models\FoodOrder;
 use App\Models\Order;
+use App\Models\Table;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -16,7 +19,7 @@ class OrderController extends Controller
     {
         $orders = Order::paginate();
 
-        return view('order');
+        return view('orders.index', compact('orders'));
     }
 
     /**
@@ -48,7 +51,9 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        //
+        $order = Order::findOrFail($id)->load('food_orders', 'food_orders.food');
+
+        return view('orders.view', compact('order'));
     }
 
     /**
@@ -59,7 +64,10 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
-        //
+        $order = Order::findOrFail($id)->load('table', 'food_orders', 'food_orders.food');
+        $foods = Food::get();
+
+        return view('orders.edit', compact('order', 'foods'));
     }
 
     /**
@@ -83,5 +91,66 @@ class OrderController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function orderOnTable($id)
+    {
+        $table = Table::findOrFail($id);
+        //TODO check if table used;
+        $order = Order::create([
+            'order_nbr' => '1', //TODO make ordernumber
+            'table_id' => $table->id,
+            'status' => 'open',
+            'total_price' => 0,
+        ]);
+
+        return redirect(route('orders.edit', $order));
+    }
+
+    public function orderAddFood(Request $request)
+    {
+        $user = auth()->user();
+
+        $foodOrder = FoodOrder::firstOrNew([
+            'order_id' => $request->order_id,
+            'food_id' => $request->food_id
+        ]);
+
+        if ($request->has('qty')) {
+            $foodOrder->qty = $request->qty;
+        } else {
+            $foodOrder->qty = ($foodOrder->qty ?? 0) + 1;
+        }
+        $foodOrder->pelayan_id = $user->id;
+        $foodOrder->food_id = $request->food_id;
+        $foodOrder->save();
+
+        $order = Order::findOrFail($request->order_id)->load('food_orders', 'food_orders.food');
+
+        return response()->json($order);
+    }
+
+    public function orderDeleteFood(Request $request)
+    {
+        $foodOrder = FoodOrder::where([
+            'order_id' => $request->order_id,
+            'food_id' => $request->food_id
+        ])->firstOrFail();
+        $foodOrder->delete();
+
+        $order = Order::findOrFail($request->order_id)->load('food_orders', 'food_orders.food');
+
+        return response()->json($order);
+    }
+
+    public function orderClose($id)
+    {
+        $kasir = auth()->user();
+
+        $order = Order::findOrFail($id);
+
+        $order = $order->closeOrder($kasir);
+
+        return redirect( route('orders.show', $order->id));
     }
 }

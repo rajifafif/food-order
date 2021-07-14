@@ -17,6 +17,7 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->string('order_nbr')->unique();
             $table->unsignedBigInteger('table_id');
+            $table->unsignedBigInteger('kasir_id')->nullable();
             $table->string('status');
             $table->decimal('total_price', 12,2);
             $table->timestamps();

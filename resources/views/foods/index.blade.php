@@ -22,7 +22,7 @@
                 <td>{{ $food->name }}</td>
                 <td>{{ \Helper::deSlug($food->type) }}</td>
                 <td>{{ $food->status == 'empty' ? 'Habis' : 'Ready' }}</td>
-                <td>{{ $food->price }}</td>
+                <td>{{ \Helper::moneyFormat($food->price) }}</td>
                 <td>
                     <a href="{{ route('foods.edit', $food) }}" class="btn btn-sm btn-warning">Edit</a>
                     <a href="#" onclick="event.preventDefault();
