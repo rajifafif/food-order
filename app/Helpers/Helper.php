@@ -16,7 +16,7 @@ class Helper
 
     public static function makeOrderNbr($id)
     {
-        return now()->format('Ymd').'-'.($id+1);
+        return now()->format('Ymd').'-'.sprintf('%03d',($id+1));
     }
 
     public static function getOrderNbrId($order_nbr)
