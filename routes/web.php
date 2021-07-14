@@ -20,7 +20,7 @@ Auth::routes();
 Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/', function () {
-        return view('welcome');
+        return redirect('dashboard');
     });
 
     Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
