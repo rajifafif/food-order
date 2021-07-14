@@ -32,6 +32,11 @@ pelayan@dummy.com:password
 
 kasir@dummy.com:password
 ```
+
+For Login API & Menu Documentation : 
+```
+https://documenter.getpostman.com/view/1038680/Tzm9kat9#ae836a29-ee2b-d1d3-9944-3be23393a7b2
+```
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
