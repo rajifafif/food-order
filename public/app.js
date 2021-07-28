@@ -16,7 +16,7 @@ if ( scannerBtn ) {
     console.log('Button Found')
 
     scannerBtn.addEventListener('click', function() {
-        var constraints = { audio: true, video: { width: 400, height: 320 } };
+        var constraints = { audio: false, video: { width: 400, height: 320, facingMode: { exact: "environment" } } };
         navigator.mediaDevices.getUserMedia(constraints)
         .then(function(stream) {
             var video = document.querySelector('video');
