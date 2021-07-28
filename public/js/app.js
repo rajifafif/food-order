@@ -9,3 +9,25 @@ if ("serviceWorker" in navigator) {
 } else {
     alert('Application Not Supported');
 }
+
+
+const scannerBtn = document.getElementById('scan-meja');
+if ( scannerBtn ) {
+    console.log('Button Found')
+
+    scannerBtn.addEventListener('click', function() {
+        var constraints = { audio: true, video: { width: 400, height: 320 } };
+        navigator.mediaDevices.getUserMedia(constraints)
+        .then(function(stream) {
+            var video = document.querySelector('video');
+            video.classList.remove("d-none");
+            video.srcObject = stream;
+            video.onloadedmetadata = function(e) {
+                video.play();
+            };
+        })
+        .catch(function(err) {
+        /* handle the error */
+        });
+    })
+}

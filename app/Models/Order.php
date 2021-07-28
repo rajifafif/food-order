@@ -14,6 +14,7 @@ class Order extends Model
         'order_nbr',
         'table_id',
         'kasir_id',
+        'pelayan_id',
         'status',
         'total_price'
     ];
@@ -29,6 +30,11 @@ class Order extends Model
     public function kasir()
     {
         return $this->belongsTo(User::class, 'kasir_id');
+    }
+
+    public function pelayan()
+    {
+        return $this->belongsTo(User::class, 'pelayan_id');
     }
 
     public function getTotalFoodAttribute()

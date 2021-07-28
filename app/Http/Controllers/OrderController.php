@@ -112,6 +112,7 @@ class OrderController extends Controller
         $order = Order::create([
             'order_nbr' => $newOrderNbr,
             'table_id' => $table->id,
+            'pelayan_id' => auth()->user()->id,
             'status' => 'open',
             'total_price' => 0,
         ]);

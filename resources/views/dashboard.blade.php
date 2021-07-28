@@ -10,14 +10,29 @@
     <div class="row">
         @foreach ($tables as $table)
             @if (count($table->orders))
-                <div class="col-xs-6 col-md-3">
-                    <a href="{{ route('orders.edit', $table->orders->first->id) }}" class="small-box bg-warning">
-                        <div class="inner">
-                        <h3>{{ $table->name }}<sup style="font-size: 20px">({{ $table->seat }})</sup></h3>
+                @php
+                    $pelayan = $table->orders->first()->pelayan;
+                    $isHandled = (optional($pelayan)->id == auth()->user()->id);
+                @endphp
+                @if ( $isHandled || auth()->user()->hasRole('kasir'))
+                    <div class="col-xs-6 col-md-3">
+                        <a href="{{ route('orders.edit', $table->orders->first->id) }}" class="small-box bg-warning">
+                            <div class="inner">
+                            <h3>{{ $table->name }}<sup style="font-size: 20px">({{ $table->seat }})</sup></h3>
+                            </div>
+                            <span class="small-box-footer">View Order <i class="fas fa-arrow-plus"></i></span>
+                        </a>
+                    </div>
+                @else
+                    <div class="col-xs-6 col-md-3">
+                        <div href="#" class="small-box bg-default">
+                            <div class="inner">
+                            <h3>{{ $table->name }}<sup style="font-size: 20px">({{ $table->seat }})</sup></h3>
+                            </div>
+                            <span class="small-box-footer text-dark">Handled By : {{ $pelayan->name ?? '' }}</span>
                         </div>
-                        <span class="small-box-footer">View Order <i class="fas fa-arrow-plus"></i></span>
-                    </a>
-                </div>
+                    </div>
+                @endif
             @else
             <div class="col-xs-6 col-md-3">
                 <a href="{{ route('order-table', $table->id) }}" class="small-box bg-success">

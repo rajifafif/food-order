@@ -17,11 +17,15 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
+
+Route::get('/', [App\Http\Controllers\MainController::class, 'main'])->name('main');
+Route::get('booking-table/{id}', [App\Http\Controllers\MainController::class, 'booking'])->name('booking-table');
+
 Route::group(['middleware' => 'auth'], function () {
 
-    Route::get('/', function () {
-        return redirect('dashboard');
-    });
+    // Route::get('/', function () {
+    //     return redirect('dashboard');
+    // });
 
     Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
 

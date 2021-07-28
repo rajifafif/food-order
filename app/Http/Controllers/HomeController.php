@@ -26,7 +26,7 @@ class HomeController extends Controller
     {
         $tables = Table::with(['orders' => function($order) {
             $order->where('status', 'open');
-        }])->get();
+        }, 'orders.pelayan'])->get();
 
         return view('dashboard', ['tables' => $tables]);
     }
