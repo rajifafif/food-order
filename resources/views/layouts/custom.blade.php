@@ -2,12 +2,21 @@
 <html lang="en">
 
 <head>
+
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    @csrf
+    <meta name="csrf-token" content="CbkLv5gqwm9mq18XPDyPmAio6D4eXXNDw5wxBskb">
 
-    <title>@yield('title')</title>
+
+
+
+    <title>
+        Dashboard </title>
+
+
+
 
     <link rel="stylesheet" href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
@@ -24,12 +33,7 @@
     <meta name="theme-color" content="#000">
     <link rel="manifest" href="{{ asset('manifest.json') }}">
     <link rel="apple-touch-icon" href="{{ asset('vendor/adminlte/dist/img/AdminLTELogo.png') }}">
-    <style>
-        .small-box.bg-default .small-box-footer {
-            color: black;
-        }
 
-    </style>
 
 
 
@@ -141,7 +145,7 @@
     <script src="{{ asset('vendor/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
     <script src="{{ asset('vendor/adminlte/dist/js/adminlte.min.js') }}"></script>
 
-    <script src='{{ asset('js/app.js') }}'></script>
+    <script src='{{ asset('app.js') }}'></script>
 </body>
 
 </html>
