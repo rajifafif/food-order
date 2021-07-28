@@ -1,0 +1,22 @@
+{
+    "name" : "Booking App",
+    "short_name" : "BookingApp",
+    "start_url" : ".",
+    "background_color" : "#f4f6f9",
+    "theme_color" : "#f4f6f9",
+    "display" : "standalone",
+    "icons" : [
+        {
+            "src": "images/google-logo-144x144.png",
+            "sizes": "144x144",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src" : "images/google-logo-1024x1024.png",
+            "sizes" : "1024x1024",
+            "type" : "image/png",
+            "purpose" : "maskable"
+        }
+    ]
+}

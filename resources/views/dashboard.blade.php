@@ -1,4 +1,4 @@
-@extends('adminlte::page')
+@extends('layouts/pwa')
 
 @section('title', 'Dashboard')
 
@@ -33,7 +33,7 @@
 @stop
 
 @section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
+
 @stop
 
 @section('js')
