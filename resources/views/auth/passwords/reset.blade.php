@@ -6,5 +6,5 @@
 @endpush
 
 @push('js')
-    <script src='{{ asset('js/app.js') }}'></script>
+    <script src='{{ asset('js/app.js') }}?id=1'></script>
 @endpush

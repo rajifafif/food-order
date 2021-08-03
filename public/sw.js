@@ -1,10 +1,9 @@
 self.addEventListener("install", e => {
     //Caching Files
     e.waitUntil(
-        caches.open("static").then(cache => {
+        caches.open("booking").then(cache => {
             return cache.addAll([
                 "/",
-                "/dashboard",
                 "/vendor/adminlte/dist/js/adminlte.min.js",
                 "/vendor/bootstrap/js/bootstrap.bundle.min.js",
                 "/vendor/overlayScrollbars/js/jquery.overlayScrollbars.min.js",

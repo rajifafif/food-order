@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\FoodController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,7 +28,7 @@ Route::group(['middleware' => 'auth'], function () {
     //     return redirect('dashboard');
     // });
 
-    Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
+    Route::get('dashboard', [HomeController::class, 'index'])->name('dashboard');
 
     Route::get('order-table/{id}', [OrderController::class, 'orderOnTable'])->name('order-table');
     Route::post('order-add-food', [OrderController::class, 'orderAddFood'])->name('order-add-food');
